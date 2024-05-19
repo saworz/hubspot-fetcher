@@ -40,8 +40,9 @@ class HubspotFetcher:
                 posts_data[post_link] = post_date
         return posts_data
 
-    def get_posts(self, amount: int = 3) -> None:
+    def get_posts(self, amount: int = 3) -> dict[str, dict]:
         """Return a list of scraped latest posts."""
+        analyzed_posts = {}
         posts_data = self.scrap_blog_main_page()
         if not posts_data:
             logging.error("Error while scraping posts.")
@@ -52,6 +53,5 @@ class HubspotFetcher:
             post = self.get_scrapped_page(url)
             analyzer = PostsAnalyzer(post)
             analyzed_data = analyzer.analyze()
-
-            print(url)
-            print(analyzed_data)
+            analyzed_posts[url] = analyzed_data
+        return analyzed_posts

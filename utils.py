@@ -49,3 +49,12 @@ def get_phrases(
         size -= 1
 
     return {k: v for k, v in phrases.items() if v >= minimum_repeat}
+
+
+def print_to_console(posts_data: dict) -> None:
+    """Print the data to the console."""
+    for url, data in posts_data.items():
+        logging.info("Fetched and analyzed data for:")
+        logging.info(f"url: {url}")
+        for key, value in data.items():
+            logging.info(f"{key}: {value}")
