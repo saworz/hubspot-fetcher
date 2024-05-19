@@ -15,7 +15,12 @@ class HubspotFetcher:
     @staticmethod
     def get_scrapped_page(url: str) -> BeautifulSoup | None:
         """Return parsed HTML page content."""
-        response = requests.get(url)
+        try:
+            response = requests.get(url)
+        except requests.exceptions.ConnectTimeout:
+            logging.error(f"Timeout connecting to the {url}")
+            return
+
         if not response.status_code == 200:
             logging.error(
                 f"Failed to retrieve page {url}. Error: {response.status_code}"

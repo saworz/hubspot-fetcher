@@ -9,4 +9,6 @@ logging.basicConfig(
 if __name__ == "__main__":
     fetcher = HubspotFetcher()
     posts_data = fetcher.get_posts()
-    print_to_console(posts_data)
+
+    if posts_data:
+        print_to_console(posts_data)
