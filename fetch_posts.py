@@ -4,6 +4,7 @@ from datetime import date
 import requests
 from bs4 import BeautifulSoup
 
+from analyze_posts import PostsAnalyzer
 from utils import convert_str_to_date, get_latest_posts
 
 
@@ -49,4 +50,8 @@ class HubspotFetcher:
         post_urls = get_latest_posts(posts_data, amount)
         for url in post_urls:
             post = self.get_scrapped_page(url)
-            print(post)
+            analyzer = PostsAnalyzer(post)
+            analyzed_data = analyzer.analyze()
+
+            print(url)
+            print(analyzed_data)
